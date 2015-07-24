@@ -30,7 +30,7 @@ public class Menu extends ListActivity {
         String cheese = classes[position];
         try {
             Class ourClass = Class.forName("com.ahmed.youtubecourse." + cheese);
-            Intent ourIntent = new Intent();
+            Intent ourIntent = new Intent(Menu.this, ourClass);
             startActivity(ourIntent);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();

@@ -11,7 +11,7 @@
             android:name=".MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="com.ahmed.youtubecourse.MainActivity" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -20,16 +20,16 @@
             android:name=".Menu"
             android:label="@string/app_name" >
             <intent-filter>
-                <action android:name="android.intent.action.Menu" />
+                <action android:name="com.ahmed.youtubecourse.Menu" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
             android:name=".Splash"
-            android:label="@string/title_activity_splash" >
+            android:label="@string/app_name" >
             <intent-filter>
-                <action android:name="android.intent.action.Splash" />
+                <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>

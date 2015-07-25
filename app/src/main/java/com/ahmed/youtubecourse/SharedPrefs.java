@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class SharedPrefs extends Activity implements OnClickListener {
@@ -31,7 +32,7 @@ public class SharedPrefs extends Activity implements OnClickListener {
         Button save = (Button) findViewById(R.id.bSave);
         Button load = (Button) findViewById(R.id.bLoad);
         sharedData = (EditText) findViewById(R.id.edSharedPrefs);
-        dataResults = (TextView) findViewById(R.id.tvShowResults);
+        dataResults = (TextView) findViewById(R.id.tvLoadSharedPrefs);
         save.setOnClickListener(this);
         load.setOnClickListener(this);
 
@@ -46,16 +47,17 @@ public class SharedPrefs extends Activity implements OnClickListener {
                 String stringData = sharedData.getText().toString();
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString("sharedString", stringData);
-                editor.commit();
+                editor.apply();
 
 
                 break;
 
-            case R.id.bLoad:
+            case  R.id.bLoad:
+                Toast.makeText(this, "successfully loaded", Toast.LENGTH_LONG).show();
 
                 sharedPreferences = getSharedPreferences(filename, 0);
-                String dataReturned = sharedPreferences.getString("sharedString", "Could not load");
-                dataResults.setText(dataReturned);
+                String loadedData = sharedPreferences.getString("sharedString", "Could not load data");
+                dataResults.setText(loadedData);
 
                 break;
         }

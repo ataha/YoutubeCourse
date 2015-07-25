@@ -14,7 +14,7 @@ import android.widget.ListView;
  */
 public class Menu extends ListActivity {
 
-    String classes[] = {"Tabs", "MainActivity", "example2"};
+    String classes[] = {"Tabs", "MainActivity", "SimpleBrowser"};
 
 
     @Override

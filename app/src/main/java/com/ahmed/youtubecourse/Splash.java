@@ -36,7 +36,12 @@ public class Splash extends ActionBarActivity {
             }
         };
         timer.start();
+
     }
 
-
+    @Override
+    protected void onPause() {
+        super.onPause();
+        finish();
+    }
 }

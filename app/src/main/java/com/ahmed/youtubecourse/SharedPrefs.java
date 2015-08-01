@@ -52,7 +52,7 @@ public class SharedPrefs extends Activity implements OnClickListener {
 
                 break;
 
-            case  R.id.bLoad:
+            case R.id.bLoad:
                 Toast.makeText(this, "successfully loaded", Toast.LENGTH_LONG).show();
 
                 sharedPreferences = getSharedPreferences(filename, 0);

@@ -2,7 +2,9 @@ package com.ahmed.youtubecourse;
 
 import android.app.Activity;
 
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import android.view.View;
@@ -25,7 +27,7 @@ public class InternalData extends Activity implements View.OnClickListener {
     EditText sharedData;
     TextView dataResults;
     FileOutputStream fos;
-    FileInputStream fis;
+    FileInputStream fis = null;
     String FILENAME = "InternalString";
 
     @Override
@@ -83,32 +85,101 @@ public class InternalData extends Activity implements View.OnClickListener {
                 break;
 
             case R.id.bLoad:
-                String collected = null;
 
+                //Read the File using openFileInput
 
-                try {
-                    fis = openFileInput(FILENAME);
-                    byte[] dataArray = new byte[fis.available()];
-                    while (fis.read(dataArray) != -1) {
-                        collected = new String(dataArray);
+//
+//                String collected = null;
+//
+//
+//                try {
+//                    fis = openFileInput(FILENAME);
+//                    byte[] dataArray = new byte[fis.available()];
+//                    while (fis.read(dataArray) != -1) {
+//                        collected = new String(dataArray);
+//
+//                    }
+//                } catch (FileNotFoundException e) {
+//                    e.printStackTrace();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                } finally {
+//                    try {
+//                        fis.close();
+//                        dataResults.setText(collected);
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//
+//                }
 
-                    }
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } finally {
-                    try {
-                        fis.close();
-                        dataResults.setText(collected);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-
-                }
-
+                new loadSomeStuff().execute(FILENAME);
                 break;
         }
 
+    }
+
+    public class loadSomeStuff extends AsyncTask<String, Integer, String> {
+
+        ProgressDialog dialog;
+
+        protected void onPreExecute() {
+            dialog = new ProgressDialog(InternalData.this);
+            dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+            dialog.setMax(100);
+            dialog.show();
+
+        }
+
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            String collected = null;
+            FileInputStream fis = null;
+
+            for (int i = 0; i < 20; i++) {
+                publishProgress(5);
+                try {
+                    Thread.sleep(80);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+            }
+            dialog.dismiss();
+
+            try {
+                fis = openFileInput(FILENAME);
+                byte[] dataArray = new byte[fis.available()];
+                while (fis.read(dataArray) != -1) {
+                    collected = new String(dataArray);
+
+                }
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    fis.close();
+                    return collected;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+            return null;
+        }
+
+        protected void onProgressUpdate(Integer... progress) {
+
+            dialog.incrementProgressBy(progress[0]);
+
+        }
+
+        protected void onPostExecute(String result) {
+            dataResults.setText(result);
+        }
     }
 }
